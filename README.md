@@ -1,6 +1,6 @@
 # Workout Tracker
 
-Users can log workouts using geolocation.
+Users can log workouts using the browsers geolocation API and using Leaflet Maps Library to mark locations.
 
 PLANNING PHASE:
 
