@@ -11,12 +11,14 @@ const inputDistance = document.querySelector('.form__input--distance');
 const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
+const inputWalking = document.querySelector('.form__input--walking');
 
 // GEOLOCATION API -BROWSER API  LIKE INTERNATIONALISATION/OBSERVER API
 
 let map, mapEvent;
 
 if (navigator.geolocation) {
+  //if exists then do first callback
   navigator.geolocation.getCurrentPosition(
     //takes 2 calback functions, first success callback, second error callback
     position => {
@@ -41,6 +43,7 @@ if (navigator.geolocation) {
 
       // get coordinates of point after clicking on the map
       map.on('click', mapE => {
+        //on comes from leaflet
         mapEvent = mapE;
         form.classList.remove('hidden');
         inputDistance.focus();
@@ -81,8 +84,27 @@ form.addEventListener('submit', e => {
 });
 
 // When choosing an input selection
+// inputType.addEventListener('change', () => {
+//   // this will only work when you already in the HTML put the active (unhidden) choice with the active selection option for the dropdown
+//   //then closest parent of each type will either be hidden or visible
+//   //so each time there will always be one that is hidden and one that is visible
+//   inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+//   inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+// });
+
+// added another parameter
 inputType.addEventListener('change', () => {
-  //then closest parent of each type will either be hidden or visible
-  inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
-  inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+  if (inputType.value === 'walking') {
+    inputElevation.closest('.form__row').classList.add('form__row--hidden');
+    inputCadence.closest('.form__row').classList.add('form__row--hidden');
+    inputWalking.closest('.form__row').classList.remove('form__row--hidden');
+  } else if (inputType.value === 'cycling') {
+    inputCadence.closest('.form__row').classList.add('form__row--hidden');
+    inputElevation.closest('.form__row').classList.remove('form__row--hidden');
+    inputWalking.closest('.form__row').classList.add('form__row--hidden');
+  } else {
+    inputElevation.closest('.form__row').classList.add('form__row--hidden');
+    inputCadence.closest('.form__row').classList.remove('form__row--hidden');
+    inputWalking.closest('.form__row').classList.add('form__row--hidden');
+  }
 });
