@@ -16,6 +16,7 @@ const inputWalking = document.querySelector('.form__input--walking');
 //CREATING THE PARENT CLASS
 class Workout {
   date = new Date();
+  id = new DataTransfer() + '';
 
   constructor(coords, distance, duration) {
     this.coords = coords;
